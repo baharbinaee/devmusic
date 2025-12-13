@@ -26,10 +26,13 @@ $artists = $conn->query("SELECT * FROM `artists`")->fetchAll();
                 </td>
                 <td><?= $artist['name'] ?></td>
                 <td><?= $artist['description'] ?></td>
-                <td>
-                    <a href="#" class="text-primary">View</a>
-                    <a href="../../../controller/artists/updateartists.php" class="text-warning">Edit</a>
-                    <a href="../../../controller/artists/deleteartists.php" class="text-danger">Delete</a>
+                
+                    <td>
+    <a href="../../../controller/artists/updateartists.php?id=<?= $artist['id'] ?>" class="text-warning">Edit</a>
+
+    <a href="../../../controller/artists/deleteartists.php?id=<?= $artist['id'] ?>" class="text-danger" onclick="return confirm('Are you sure you want to delete this artist?')">Delete</a>
+</td>
+
                 </td>
             </tr>
         <?php endforeach; ?>
