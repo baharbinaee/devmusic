@@ -10,6 +10,7 @@ $artists = $conn->query("SELECT * FROM `artists`")->fetchAll();
     <table class="table">
         <thead>
             <tr>
+                <th>id</th>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Description</th>
@@ -17,25 +18,30 @@ $artists = $conn->query("SELECT * FROM `artists`")->fetchAll();
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($artists as $artist): ?>
-            <tr>
-                <td>
-                    <?php if (!empty($artist['img'])): ?>
-                        <img src="../../../public/artists/<?= $artist['img'] ?>" width="40" height="40" class="rounded">
-                    <?php endif; ?>
-                </td>
-                <td><?= $artist['name'] ?></td>
-                <td><?= $artist['description'] ?></td>
-                
+            <?php foreach ($artists as $artist) { ?>
+                <tr>
+                    <td><?= $artist['id'] ?></td>
                     <td>
-    <a href="../../../controller/artists/updateartists.php?id=<?= $artist['id'] ?>" class="text-warning">Edit</a>
+                        <?php if (!empty($artist['img'])) { ?>
+                            <img src="../../../public/artists/<?= $artist['img'] ?>" width="40" height="40" class="rounded">
+                        <?php }
+                        ?>
+                    </td>
+                    <td><?= $artist['name'] ?></td>
+                    <td><?= $artist['description'] ?></td>
 
-    <a href="../../../controller/artists/deleteartists.php?id=<?= $artist['id'] ?>" class="text-danger" onclick="return confirm('Are you sure you want to delete this artist?')">Delete</a>
-</td>
+                    <td>
+                    <a href="<?= url_get('view/Admin/artists/update.php', $artist['id']) ?>" class="text-warning">Edit</a>
 
-                </td>
-            </tr>
-        <?php endforeach; ?>
+
+                        <a href="../../../controller/artists/deleteartists.php?id=<?= $artist['id'] ?>" class="text-danger" onclick="return confirm('Are you sure you want to delete this artist?')">Delete</a>
+                    </td>
+
+                    </td>
+                </tr>
+            <?php
+            }
+            ?>
         </tbody>
     </table>
 </div>
