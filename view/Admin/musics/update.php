@@ -3,14 +3,14 @@ require_once "../../../functions/helpers.php";
 require_once "../../../functions/pdo.php";
 
 $id = $_GET['id'];
-$artist = $conn->query("SELECT * FROM `artists` WHERE id=$id")->fetch();
+$music = $conn->query("SELECT * FROM `musics` WHERE id=$id")->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-    <title>Update Artist</title>
+    <title>Update music</title>
     <style>
         body {
             font-family: Tahoma, sans-serif;
@@ -87,18 +87,18 @@ $artist = $conn->query("SELECT * FROM `artists` WHERE id=$id")->fetch();
 </head>
 <body>
     <div class="card">
-        <h2>ویرایش Artist</h2>
-        <form method="POST" action="<?= url_get('controller/artists/updateartists.php', $artist['id']) ?>" enctype="multipart/form-data">
-            <p>شناسه# <?= $artist['id'] ?></p>
-            <label>نام Artist</label>
-            <input type="text" name="name" value="<?= $artist['name'] ?>" required>
+        <h2>ویرایش music</h2>
+        <form method="POST" action="<?= url_get('controller/musics/updatemusics.php', $music['id']) ?>" enctype="multipart/form-data">
+            <p>شناسه# <?= $music['id'] ?></p>
+            <label>نام music</label>
+            <input type="text" name="name" value="<?= $music['name'] ?>" required>
 
             <label>توضیحات</label>
-            <textarea name="description" required><?= $artist['description'] ?></textarea>
+            <textarea name="description" required><?= $music['description'] ?></textarea>
 
             <label>تصویر دسته‌بندی</label>
-            <?php if (!empty($artist['img'])): ?>
-                <img src="<?= assets('artists/'.$artist['img']) ?>" alt="Current Image">
+            <?php if (!empty($music['img'])): ?>
+                <img src="<?= assets('musics/'.$music['img']) ?>" alt="Current Image">
             <?php endif; ?>
             <input type="file" name="img" accept="image/*">
 
