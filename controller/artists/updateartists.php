@@ -3,9 +3,6 @@ require_once "../../functions/pdo.php";
 require_once "../../functions/helpers.php";
 
 $id = $_GET['id'];
-// if ($id!=" ") {
-//     redirect("view/admin/artists/index.php");
-// }
 
 $artist = $conn->prepare("SELECT * FROM artists WHERE id = ?");
 $artist->execute([$id]);
