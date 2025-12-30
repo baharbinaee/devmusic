@@ -3,14 +3,14 @@ require_once "../../../functions/helpers.php";
 require_once "../../../functions/pdo.php";
 
 $id = $_GET['id'];
-$music = $conn->query("SELECT * FROM `musics` WHERE id=$id")->fetch();
+$playlist = $conn->query("SELECT * FROM `playlist` WHERE id=$id")->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-    <title>Update music</title>
+    <title>Update playlist</title>
     <style>
         body {
             font-family: Tahoma, sans-serif;
@@ -87,20 +87,11 @@ $music = $conn->query("SELECT * FROM `musics` WHERE id=$id")->fetch();
 </head>
 <body>
     <div class="card">
-        <h2>ویرایش music</h2>
-        <form method="POST" action="<?= url_get('controller/musics/updatemusics.php', $music['id']) ?>" enctype="multipart/form-data">
-            <p>شناسه# <?= $music['id'] ?></p>
-            <label>نام music</label>
-            <input type="text" name="name" value="<?= $music['name'] ?>" required>
-
-            <label>توضیحات</label>
-            <textarea name="description" required><?= $music['description'] ?></textarea>
-
-            <label>تصویر دسته‌بندی</label>
-            <?php if (!empty($music['img'])): ?>
-                <img src="<?= assets('musics/'.$music['img']) ?>" alt="Current Image">
-            <?php endif; ?>
-            <input type="file" name="img" accept="image/*">
+        <h2>ویرایش playlist</h2>
+        <form method="POST" action="<?= url_get('controller/playlist/updateplaylist.php', $c['id']) ?>" enctype="multipart/form-data">
+            <p>شناسه# <?= $playlist['id'] ?></p>
+            <label>نام playlist</label>
+            <input type="text" name="name" value="<?= $playlist['title'] ?>" required>
 
             <button type="submit">ذخیره تغییرات</button>
         </form>

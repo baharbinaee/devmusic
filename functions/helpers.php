@@ -34,5 +34,41 @@ function checkmethod(){
 }
 
 
+function Flash($text, $mode = "primary")
+{
+    switch ($mode) {
+        case 'error':
+            $class = "danger";
+            break;
+        case 'warning':
+            $class = "warning";
+        case 'success' || 'ok':
+            $class = "success";
+        default:
+            $class = "primary";
+            break;
+    }
+
+    $alert = "<div class='alert alert-$class' role='alert'>
+            $text
+        </div>";
+    return $alert;
+}
+
+
+function Set_flash($text, $mode = "primary")
+{
+    session_start();
+    $_SESSION['text'] = $text;
+    $_SESSION['mode'] = $mode;
+}
+function Check_Flash()
+{
+    if (!empty($_SESSION["text"])) {
+       echo Flash($_SESSION['text'] , $_SESSION['mode']);
+    }
+    session_unset();
+    
+}
 
 ?>
