@@ -19,7 +19,7 @@ $cover = $_FILES['cover']['name'];
 /* اعتبارسنجی */
 if (!$name || !$description) {
     $_SESSION['error'] = "❌ لطفا تمام فیلدهای اجباری را پر کنید";
-    redirect("view/admin/music/index2.php");
+    redirect("view/admin/music/index.php");
     exit;
 }
 

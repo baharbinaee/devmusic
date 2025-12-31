@@ -2,7 +2,7 @@
 require_once "../layouts/header.php";
 $musics = $conn->query(" SELECT *
 FROM music
-INNER JOIN category ON music.cat_id = category.id;")->fetchAll();
+INNER JOIN categories ON music.cat_id = categories.id;")->fetchAll();
 ?>
 
 <div class="container">

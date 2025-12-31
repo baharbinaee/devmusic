@@ -88,7 +88,7 @@ $category = $conn->query("SELECT * FROM `categories` WHERE id=$id")->fetch();
 <body>
     <div class="card">
         <h2>ویرایش category</h2>
-        <form method="POST" action="<?= url_get('controller/categories/updatecategories.php', $c['id']) ?>" enctype="multipart/form-data">
+        <form method="POST" action="<?= url_get('controller/categories/updatecategories.php', $category['id']) ?>" enctype="multipart/form-data">
             <p>شناسه# <?= $category['id'] ?></p>
             <label>نام category</label>
             <input type="text" name="name" value="<?= $category['title'] ?>" required>
