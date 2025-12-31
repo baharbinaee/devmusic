@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2025 at 08:46 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Generation Time: Dec 31, 2025 at 05:44 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -32,9 +33,9 @@ CREATE TABLE `admins` (
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -47,9 +48,9 @@ CREATE TABLE `artists` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `artists`
@@ -77,9 +78,9 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `categories`
@@ -103,13 +104,21 @@ CREATE TABLE `musics` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `lyrics` varchar(255) NOT NULL,
-  `music` varchar(256) NOT NULL,
+  `file` varchar(256) NOT NULL,
   `cover` varchar(255) NOT NULL,
   `artist_id` tinyint(4) NOT NULL,
   `cat_id` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `musics`
+--
+
+INSERT INTO `musics` (`id`, `name`, `description`, `lyrics`, `file`, `cover`, `artist_id`, `cat_id`, `created_at`, `updated_at`) VALUES
+(1, ',mm,', 'nkl', '', 'Cookie-in-PHP.jpg', 'MySQL-Sample-Database-Schema.png', 0, 0, '2025-12-31 16:10:39', NULL),
+(2, 'مسیتازنتیسدز', '.ئنیسزردمنسیر منیس', 'وئزدر منیس', 'music_1767199207_Morteza Pashaei _ Asre Paeizi (320).mp3', 'cover_1767199207_mariadb-er-diagram-1024x550.png', 3, 3, '2025-12-31 16:40:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -120,9 +129,16 @@ CREATE TABLE `musics` (
 CREATE TABLE `playlist` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `playlist`
+--
+
+INSERT INTO `playlist` (`id`, `title`, `created_at`, `updated_at`) VALUES
+(1, 'l/jh/ljhljk', '2025-12-31 16:07:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -134,9 +150,9 @@ CREATE TABLE `playlist_music` (
   `id` int(11) NOT NULL,
   `music_id` int(11) NOT NULL,
   `playlist_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -151,9 +167,9 @@ CREATE TABLE `settings` (
   `banner` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `phonenumber` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `settings`
@@ -173,10 +189,10 @@ CREATE TABLE `ticket` (
   `user_id` tinyint(4) NOT NULL,
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -191,9 +207,9 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -279,13 +295,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `musics`
 --
 ALTER TABLE `musics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `playlist_music`
