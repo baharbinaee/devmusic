@@ -6,7 +6,7 @@ require_once "../../../functions/helpers.php";
 
 <head>
     <meta charset="UTF-8">
-    <title>add music</title>
+    <title>Add Music</title>
     <style>
         body {
             font-family: Tahoma, sans-serif;
@@ -17,7 +17,6 @@ require_once "../../../functions/helpers.php";
             min-height: 100vh;
             margin: 0;
         }
-
         .card {
             background: #fff;
             padding: 20px 25px;
@@ -26,20 +25,9 @@ require_once "../../../functions/helpers.php";
             width: 100%;
             max-width: 400px;
         }
-
-        h2 {
-            text-align: center;
-            margin-top: 0;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-
-        input,
-        textarea {
+        h2 { text-align: center; margin-top: 0; }
+        label { display: block; margin-bottom: 6px; font-size: 14px; }
+        input, textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -47,12 +35,7 @@ require_once "../../../functions/helpers.php";
             border: 1px solid #ccc;
             font-size: 14px;
         }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
+        textarea { resize: vertical; min-height: 100px; }
         button {
             width: 100%;
             padding: 12px;
@@ -67,36 +50,40 @@ require_once "../../../functions/helpers.php";
 </head>
 
 <body>
-    <div class="card">
-        <h2>add music</h2>
+<div class="card">
+    <h2>افزودن موسیقی</h2>
 
-        <?php if (!empty($_SESSION['error'])): ?>
-            <div class="error">
-                <?= $_SESSION['error'];
-                unset($_SESSION['error']); ?>
-            </div>
-        <?php endif; ?>
+    <?php if (!empty($_SESSION['error'])): ?>
+        <div class="error">
+            <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+        </div>
+    <?php endif; ?>
 
-        <form action="<?= url("controller/music/addmusic.php") ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= url("controller/music/addmusic.php") ?>" method="post" enctype="multipart/form-data">
 
-            <label>نام موسیقی</label>
-            <input type="text" name="name" required>
+        <label>نام موسیقی</label>
+        <input type="text" name="name" required>
 
-            <label>توضیحات </label>
-            <input type="text" name="description" required>
+        <label>توضیحات</label>
+        <textarea name="description" required></textarea>
 
-             <label>متن موسیقی </label>
-            <input type="text" name="lyrics" required>
+        <label>متن موسیقی</label>
+        <textarea name="lyrics" required></textarea>
 
-            <label>تصویر کاور</label>
-            <input type="file" name="cover" accept="image/*">
+        <label>cat_id</label>
+        <input type="number" name="cat_id" required>
 
-            <label>فایل موسیقی</label>
-            <input type="file" name="file"> <!--  accept="audio/*" -->
+        <label>artist_id</label>
+        <input type="number" name="artist_id" required>
 
-            <button type="submit">ذخیره</button>
-        </form>
-    </div>
+        <label>تصویر کاور</label>
+        <input type="file" name="cover" accept="image/*">
+
+        <label>فایل موسیقی</label>
+        <input type="file" name="file" accept="audio/*">
+
+        <button type="submit">ذخیره</button>
+    </form>
+</div>
 </body>
-
 </html>

@@ -1,8 +1,11 @@
 <?php
 require_once "../layouts/header.php";
-$musics = $conn->query(" SELECT *
-FROM music
-INNER JOIN categories ON music.cat_id = categories.id;")->fetchAll();
+
+$musics = $conn->query("
+    SELECT *
+    FROM music
+    INNER JOIN categories ON music.cat_id = categories.id
+")->fetchAll();
 ?>
 
 <div class="container">
@@ -16,7 +19,8 @@ INNER JOIN categories ON music.cat_id = categories.id;")->fetchAll();
                 <th>name</th>
                 <th>Description</th>
                 <th>cover</th>
-                <th>created_at</th>
+                <th>cat_id</th>
+                <th>artist_id</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -30,10 +34,12 @@ INNER JOIN categories ON music.cat_id = categories.id;")->fetchAll();
                     <td>
                         <img src="../../../public/music/<?= $music['cover'] ?>" width="50" height="50">
                     </td>
-                    <td><?= $music['created_at'] ?></td>
+                    <td><?= $music['cat_id'] ?></td>
+                    <td><?= $music['artist_id'] ?></td>
                     <td>
                         <a href="<?= url_get('view/Admin/music/edit.php', $music['id']) ?>" class="text-warning">Edit</a>
-                        <a href="../../../controller/music/deletemusic.php?id=<?= $music['id'] ?>" class="text-danger"
+                        <a href="../../../controller/music/deletemusic.php?id=<?= $music['id'] ?>"
+                           class="text-danger"
                            onclick="return confirm('Are you sure you want to delete this artist?')">
                             Delete
                         </a>

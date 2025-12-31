@@ -2,18 +2,21 @@
 require_once "../../../functions/helpers.php";
 require_once "../../../functions/pdo.php";
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?? null;
+if (!$id) die('invalid id');
 
-$musics = $conn->query("SELECT * FROM `music` WHERE id= '$id'")->fetch();
-// var_dump($musics);
-// exit;
+$stmt = $conn->prepare("SELECT * FROM music WHERE id = ?");
+$stmt->execute([$id]);
+$musics = $stmt->fetch();
+
+if (!$musics) die('music not found');
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-    <title>Add Artist</title>
+    <title>Update Music</title>
     <style>
         body {
             font-family: Tahoma, sans-serif;
@@ -24,7 +27,6 @@ $musics = $conn->query("SELECT * FROM `music` WHERE id= '$id'")->fetch();
             min-height: 100vh;
             margin: 0;
         }
-
         .card {
             background: #fff;
             padding: 20px 25px;
@@ -33,20 +35,9 @@ $musics = $conn->query("SELECT * FROM `music` WHERE id= '$id'")->fetch();
             width: 100%;
             max-width: 400px;
         }
-
-        h2 {
-            text-align: center;
-            margin-top: 0;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-
-        input,
-        textarea {
+        h2 { text-align: center; margin-top: 0; }
+        label { display: block; margin-bottom: 6px; font-size: 14px; }
+        input, textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -54,12 +45,7 @@ $musics = $conn->query("SELECT * FROM `music` WHERE id= '$id'")->fetch();
             border: 1px solid #ccc;
             font-size: 14px;
         }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
+        textarea { resize: vertical; min-height: 100px; }
         button {
             width: 100%;
             padding: 12px;
@@ -74,44 +60,37 @@ $musics = $conn->query("SELECT * FROM `music` WHERE id= '$id'")->fetch();
 </head>
 
 <body>
-    <div class="card">
-        <?php ?>
-        <h2>بروزرسانی</h2>
+<div class="card">
+    <h2>بروزرسانی موسیقی</h2>
 
-        <?php if (!empty($_SESSION['error'])): ?>
-            <div class="error">
-                <?= $_SESSION['error'];
-                unset($_SESSION['error']); ?>
-            </div>
-        <?php endif; ?>
+    <form action="<?= url('controller/music/update.php') ?>" method="post" enctype="multipart/form-data">
 
-        <form action="<?= url("controller/music/update.php") ?>" method="post" enctype="multipart/form-data">
+        <!-- خیلی مهم -->
+        <input type="hidden" name="id" value="<?= $musics['id'] ?>">
 
-            <label>نام موسیقی</label>
-            <input type="text" name="name" value="<?= $musics['name'] ?>" required>
+        <label>نام موسیقی</label>
+        <input type="text" name="name" value="<?= $musics['name'] ?>" required>
 
-            <label>توضیحات</label>
-            <textarea name="description" required><?= $musics['description'] ?></textarea>
+        <label>توضیحات</label>
+        <textarea name="description" required><?= $musics['description'] ?></textarea>
 
-            <label>متن موسیقی </label>
-            <textarea name="lyrics" required><?= $musics['lyrics'] ?></textarea>
+        <label>متن موسیقی</label>
+        <textarea name="lyrics" required><?= $musics['lyrics'] ?></textarea>
 
-            <label>فایل موسیقی </label>
-            <input type="file" name="file" accept="audio/*">
+        <label>cat_id</label>
+        <input type="number" name="cat_id" value="<?= $musics['cat_id'] ?>" required>
 
-            <label>تصویر کاور</label>
-            <input type="file" name="cover" accept="img/*">
+        <label>artist_id</label>
+        <input type="number" name="artist_id" value="<?= $musics['artist_id'] ?>" required>
 
-            <button type="submit">ذخیره</button>
+        <label>فایل موسیقی</label>
+        <input type="file" name="file" accept="audio/*">
 
-            <!-- <audio src="" controls></audio> -->
-        </form>
-    </div>
+        <label>تصویر کاور</label>
+        <input type="file" name="cover" accept="image/*">
+
+        <button type="submit">ذخیره</button>
+    </form>
+</div>
 </body>
-
 </html>
-
-<?php
-// var_dump($id);
-// var_dump($musics);
-?>

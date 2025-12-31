@@ -91,7 +91,7 @@ $playlist = $conn->query("SELECT * FROM `playlist` WHERE id=$id")->fetch();
         <form method="POST" action="<?= url_get('controller/playlist/updateplaylist.php', $playlist['id']) ?>" enctype="multipart/form-data">
             <p>شناسه# <?= $playlist['id'] ?></p>
             <label>نام playlist</label>
-            <input type="text" name="name" value="<?= $playlist['title'] ?>" required>
+            <input type="text" name="title" value="<?= $playlist['title'] ?>" required>
 
             <button type="submit">ذخیره تغییرات</button>
         </form>
