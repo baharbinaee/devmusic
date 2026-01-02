@@ -1,12 +1,17 @@
 <?php
+require_once "../../../functions/pdo.php";
 require_once "../../../functions/helpers.php";
+$id = $_GET['id'];
+$stmt = $conn->prepare("SELECT * FROM musics WHERE id = ?");
+$stmt->execute([$id]);
+$musics = $stmt->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-    <title>Add Music</title>
+    <title>Update Music</title>
     <style>
         body {
             font-family: Tahoma, sans-serif;
@@ -51,36 +56,33 @@ require_once "../../../functions/helpers.php";
 
 <body>
 <div class="card">
-    <h2>افزودن موسیقی</h2>
+    <h2>بروزرسانی موسیقی</h2>
 
-    <?php if (!empty($_SESSION['error'])): ?>
-        <div class="error">
-            <?= $_SESSION['error']; unset($_SESSION['error']); ?>
-        </div>
-    <?php endif; ?>
+    <form action="../../../controller/musics/updatemusics.php" method="post" enctype="multipart/form-data">
 
-    <form action="<?= url("controller/music/addmusic.php") ?>" method="post" enctype="multipart/form-data">
+        <!-- خیلی مهم -->
+        <input type="number" name="id" value="<?= $musics['id'] ?>">
 
         <label>نام موسیقی</label>
-        <input type="text" name="name" required>
+        <input type="text" name="name" value="<?= $musics['name'] ?>" required>
 
         <label>توضیحات</label>
-        <textarea name="description" required></textarea>
+        <textarea name="description" required><?= $musics['description'] ?></textarea>
 
         <label>متن موسیقی</label>
-        <textarea name="lyrics" required></textarea>
+        <textarea name="lyrics" required><?= $musics['lyrics'] ?></textarea>
 
         <label>cat_id</label>
-        <input type="number" name="cat_id" required>
+        <input type="number" name="cat_id" value="<?= $musics['cat_id'] ?>" required>
 
         <label>artist_id</label>
-        <input type="number" name="artist_id" required>
-
-        <label>تصویر کاور</label>
-        <input type="file" name="cover" accept="image/*">
+        <input type="number" name="artist_id" value="<?= $musics['artist_id'] ?>" required>
 
         <label>فایل موسیقی</label>
         <input type="file" name="file" accept="audio/*">
+
+        <label>تصویر کاور</label>
+        <input type="file" name="cover" accept="image/*">
 
         <button type="submit">ذخیره</button>
     </form>

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2025 at 05:44 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Jan 02, 2026 at 08:52 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -33,9 +32,9 @@ CREATE TABLE `admins` (
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -48,9 +47,9 @@ CREATE TABLE `artists` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `artists`
@@ -66,7 +65,8 @@ INSERT INTO `artists` (`id`, `name`, `description`, `img`, `created_at`, `update
 (10, 'Radiohead', 'let\'s not discuss it and just jump to the crying part cause I\'M A CREEEEEEP. \r\nP.S. the vocalist looks like a raw carrot.', '1765657896_MV5BZmU1OGNmZjMtY2ZlZi00YTI3LTk2ODctYjg1YjYyMDNmZTc0XkEyXkFqcGc@._V1_.jpg', '2025-12-13 20:31:36', NULL),
 (11, 'Bring Me The Horizon', 'the literal meaning of Nu Metal.', '1765658000_BMTH-JontiWild-2024-2.webp', '2025-12-13 20:33:20', NULL),
 (12, 'Bad Omens', 'dude calls himself a bad omen, what else did you expect?', '1765658084_LxT5UUN8tzo8ggc58NpSkg-1200-80.jpg', '2025-12-13 20:34:44', NULL),
-(13, 'Michael Jackson', 'Michael Joseph Jackson was an American singer, songwriter, dancer, and philanthropist. Dubbed the \"King of Pop\", he is widely regarded as one of the most culturally significant figures of the 20th century.', '1765658508_Michael_Jackson.webp', '2025-12-13 20:41:48', NULL);
+(13, 'Michael Jackson', 'Michael Joseph Jackson was an American singer, songwriter, dancer, and philanthropist. Dubbed the \"King of Pop\", he is widely regarded as one of the most culturally significant figures of the 20th century.', '1765658508_Michael_Jackson.webp', '2025-12-13 20:41:48', NULL),
+(14, 'Anathema', 'The word anathema has two main meanings. One is to describe that something or someone is being hated or avoided. The other refers to a formal excommunication by a church', '1767379919_ab6761610000e5eb3b2f51bb865ea1d25c236789.jfif', '2026-01-02 18:51:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -78,9 +78,9 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
@@ -91,7 +91,8 @@ INSERT INTO `categories` (`id`, `title`, `img`, `created_at`, `updated_at`) VALU
 (3, 'Alternative Metal', '1766432304_Nu-Metal-Party.jpg', '2025-12-22 19:38:24', NULL),
 (4, 'Indie Pop–Rock', '1766432550_avatars-000436891380-l192ru-t240x240.jpg', '2025-12-22 19:42:30', NULL),
 (5, 'Phonk', '1766432598_avatars-000291938190-p1vhle-t240x240.jpg', '2025-12-22 19:43:18', NULL),
-(6, 'Alternative R&B', '1766432757_61n-WuyW0JL._UXNaN_FMjpg_QL85_.jpg', '2025-12-22 19:45:57', NULL);
+(6, 'Alternative R&B', '1766432757_61n-WuyW0JL._UXNaN_FMjpg_QL85_.jpg', '2025-12-22 19:45:57', NULL),
+(7, 'Alternative rock', '1767380080_ab67616d0000b273cc89f9e85b537f63d10f1911.jfif', '2026-01-02 18:54:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,22 +104,22 @@ CREATE TABLE `musics` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `lyrics` varchar(255) NOT NULL,
+  `lyrics` text NOT NULL,
   `file` varchar(256) NOT NULL,
   `cover` varchar(255) NOT NULL,
   `artist_id` tinyint(4) NOT NULL,
   `cat_id` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `musics`
 --
 
 INSERT INTO `musics` (`id`, `name`, `description`, `lyrics`, `file`, `cover`, `artist_id`, `cat_id`, `created_at`, `updated_at`) VALUES
-(1, ',mm,', 'nkl', '', 'Cookie-in-PHP.jpg', 'MySQL-Sample-Database-Schema.png', 0, 0, '2025-12-31 16:10:39', NULL),
-(2, 'مسیتازنتیسدز', '.ئنیسزردمنسیر منیس', 'وئزدر منیس', 'music_1767199207_Morteza Pashaei _ Asre Paeizi (320).mp3', 'cover_1767199207_mariadb-er-diagram-1024x550.png', 3, 3, '2025-12-31 16:40:07', NULL);
+(6, 'Flying', 'Listen if you\'re way too much done.', 'Started a search to no avail\r\nA light that shines behind the veil trying to find it\r\nAnd all around us everywhere is all that we could ever share\r\nIf only we could see it\r\nBelieve there\'s truth that\'s beyond me\r\nLife ever changing weaving destiny\r\n(And) it feels like I\'m flying above you\r\nDream that I\'m dying to find the truth\r\nSeems like your trying to bring me down\r\nBack down to earth back down to earth\r\nLayers of dust and yesterdays\r\nShadows fading in the haze of what I couldn\'t say\r\nAnd though I said my hands were tied\r\nTimes have changed and now I find I\'m free for the first time\r\nFeel so close to everything now\r\nStrange how life makes sense in time now', '1767381556_anathema_-_flying_universal_-_live_2013.mp3', '1767381556_2b42f96065f178011595a4b3fcebfcfb.710x710x1.jpg', 14, 7, '2026-01-02 19:19:16', NULL),
+(8, 'Creep', 'I don\'t belong here.', 'When you were here before\r\nCouldn\'t look you in the eye\r\nYou\'re just like an angel\r\nYour skin makes me cry\r\nYou float like a feather\r\nIn a beautiful world\r\n\r\nI wish I was special\r\nYou\'re so fuckin\' special\r\n\r\nBut I\'m a creep\r\nI\'m a weirdo\r\nWhat the hell am I doing here?\r\nI don\'t belong here\r\n\r\nI don\'t care if it hurts\r\nI want to have control\r\nI want a perfect body\r\nI want a perfect soul\r\nI want you to notice\r\nWhen I\'m not around\r\n\r\nYou\'re so fuckin\' special\r\nI wish I was special\r\n\r\nBut I\'m a creep\r\nI\'m a weirdo\r\nWhat the hell am I doing here?\r\nI don\'t belong here\r\n\r\nShe\'s running out again\r\nShe\'s running out\r\nShe\'s run run run run\r\n\r\nWhatever makes you happy\r\nWhatever you want\r\nYou\'re so fuckin\' special\r\nI wish I was special\r\nBut I\'m a creep\r\nI\'m a weirdo\r\nWhat the hell am I doing here?\r\nI don\'t belong here\r\nI don\'t belong here', '1767383403_Radiohead - Creep.mp3', '1767383403_ab67616d0000b273ec548c00d3ac2f10be73366d.jfif', 10, 7, '2026-01-02 19:50:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -129,16 +130,16 @@ INSERT INTO `musics` (`id`, `name`, `description`, `lyrics`, `file`, `cover`, `a
 CREATE TABLE `playlist` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `playlist`
 --
 
 INSERT INTO `playlist` (`id`, `title`, `created_at`, `updated_at`) VALUES
-(1, 'l/jh/ljhljk', '2025-12-31 16:07:53', NULL);
+(2, 'قرمه سبزی رو پیتزا', '2026-01-02 12:50:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -150,9 +151,9 @@ CREATE TABLE `playlist_music` (
   `id` int(11) NOT NULL,
   `music_id` int(11) NOT NULL,
   `playlist_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -167,9 +168,9 @@ CREATE TABLE `settings` (
   `banner` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `phonenumber` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `settings`
@@ -189,10 +190,10 @@ CREATE TABLE `ticket` (
   `user_id` tinyint(4) NOT NULL,
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -207,9 +208,9 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -283,25 +284,25 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `artists`
 --
 ALTER TABLE `artists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `musics`
 --
 ALTER TABLE `musics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `playlist_music`
